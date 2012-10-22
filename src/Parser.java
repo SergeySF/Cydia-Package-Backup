@@ -4,16 +4,12 @@ import java.io.IOException;
 import java.io.StringReader;
 public class Parser {
 	private ArrayList<Package> packages;
-	public Parser(String status){	//status file from /var/lib/dpkg
 	public Parser(String status) throws IOException{	//status file from /var/lib/dpkg
 		packages = new ArrayList<Package>();
-		obtainPackages(status);
 		populatePackageList(status);
 	}
-	private void obtainPackages(String status){
 	private void populatePackageList(String status) throws IOException{
 		BufferedReader reader = new BufferedReader(new StringReader(status));
-		
 		String line;
 		Package p = new Package();
 		while((line = reader.readLine()) != null){
@@ -31,9 +27,32 @@ public class Parser {
 						term_pos = i;
 						break;
 					}
+				}
+				for(int i = 0; i < line.length(); i++){
+					if (i < term_pos) key += line.charAt(i);
+					if (i > term_pos + 1 /* there's a space too*/) value += line.charAt(i);
+				}
 				p.add(key, value);
 			}
 		}
 	}
+	public ArrayList<Package> getInstalledPackages(){
+		//just keeps packages that are installed - what 99% of people probably want
+		FilterRequest[] options = {new FilterRequest(Package.DEFAULT_FIELDS[0]), new FilterRequest(Package.DEFAULT_FIELDS[2], Package.INSTALLED)};
+		return filter(options);
+	}
+	public ArrayList<Package> filter(FilterRequest[] options){
+		ArrayList<Package> new_packages = new ArrayList<Package>();
+		for(FilterRequest option : options){
+			for(Package p : packages){
+				if(option.IgnoreValue()){
+					if(!p.doesHaveKey(option.getKey())) packages.remove(p);
+				}
+				else{
+					if(!p.keyHasValue(option.getKey(), option.getValue())) packages.remove(p);
+				}
+			}
+		}
+		return new_packages;
 	}
 }
