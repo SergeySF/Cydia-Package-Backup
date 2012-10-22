@@ -41,15 +41,19 @@ public class Parser {
 		FilterRequest[] options = {new FilterRequest(Package.DEFAULT_FIELDS[0]), new FilterRequest(Package.DEFAULT_FIELDS[2], Package.INSTALLED)};
 		return filter(options);
 	}
+	public ArrayList<Package> getEssentialPackages(){
+		FilterRequest[] options = {new FilterRequest(Package.DEFAULT_FIELDS[1], Package.YES_ESSENTIAL)};
+		return filter(options);
+	}
 	public ArrayList<Package> filter(FilterRequest[] options){
 		ArrayList<Package> new_packages = new ArrayList<Package>();
 		for(FilterRequest option : options){
 			for(Package p : packages){
 				if(option.IgnoreValue()){
-					if(!p.doesHaveKey(option.getKey())) packages.remove(p);
+					if(!p.doesHaveKey(option.getKey())) new_packages.add(p);
 				}
 				else{
-					if(!p.keyHasValue(option.getKey(), option.getValue())) packages.remove(p);
+					if(!p.keyHasValue(option.getKey(), option.getValue())) new_packages.add(p);
 				}
 			}
 		}

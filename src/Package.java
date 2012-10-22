@@ -19,5 +19,7 @@ public class Package {
 		"Architecture", "Version", "Depends",
 		"PreDepends", "Description", "Name", "Homepage"
 	};
+	//common constants
 	public final static String INSTALLED = "install ok installed";
+	public final static String YES_ESSENTIAL = "yes";
 }
