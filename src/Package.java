@@ -13,10 +13,11 @@ public class Package {
 	public boolean keyHasValue(String key, String value){
 		return doesHaveKey(key) && flags.get(key).equals(value);
 	}
-	public static String[] DEFAULT_FIELDS = {
+	public final static String[] DEFAULT_FIELDS = {
 		"Package", "Essential", "Status", "Priority",
 		"Section", "InstalledSize", "Maintainer",
 		"Architecture", "Version", "Depends",
 		"PreDepends", "Description", "Name", "Homepage"
 	};
+	public final static String INSTALLED = "install ok installed";
 }
