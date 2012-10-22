@@ -38,7 +38,7 @@ public class Parser {
 	}
 	public ArrayList<Package> getInstalledPackages(){
 		//just keeps packages that are installed - what 99% of people probably want
-		FilterRequest[] options = {new FilterRequest(Package.DEFAULT_FIELDS[0]), new FilterRequest(Package.DEFAULT_FIELDS[2], Package.INSTALLED)};
+		FilterRequest[] options = {new FilterRequest(Package.DEFAULT_FIELDS[2], Package.INSTALLED)};
 		return filter(options);
 	}
 	public ArrayList<Package> getEssentialPackages(){
