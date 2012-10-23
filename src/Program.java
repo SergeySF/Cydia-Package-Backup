@@ -45,5 +45,6 @@ public class Program {
 				for(int i = 0; i < r.length; i++) r[i] = requests.get(i);
 				packages = parser.filter(r);
 			}
+			Parser.printPackages(packages);
 		}
 }

@@ -15,6 +15,7 @@ public class Parser {
 		while((line = reader.readLine()) != null){
 			if(line.equals("\n")){
 				if(p.doesHaveKey(Package.DEFAULT_FIELDS[0])){	//useful corner case - make sure it IS actually a package so we don't throw in whitespace packages
+					System.out.println("I'm even adding packages...");
 					packages.add(p);
 					p = new Package();
 				}
@@ -22,8 +23,8 @@ public class Parser {
 			else{
 				int term_pos = -1;
 				String key = "", value = "";
-				for (int i = 0; i < line.length() + 1; i++){
-					if (line.charAt(i) == ':' && line.charAt(i + 1) == ' '){
+				for (int i = 0; i < line.length(); i++){
+					if (line.charAt(i) == ':'){
 						term_pos = i;
 						break;
 					}
@@ -32,6 +33,7 @@ public class Parser {
 					if (i < term_pos) key += line.charAt(i);
 					if (i > term_pos + 1 /* there's a space too*/) value += line.charAt(i);
 				}
+				System.out.println("Key:\t" + key + " Value:\t" + value);
 				p.add(key, value);
 			}
 		}
