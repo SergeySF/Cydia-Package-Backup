@@ -13,6 +13,9 @@ public class Package {
 	public boolean keyHasValue(String key, String value){
 		return doesHaveKey(key) && flags.get(key).equals(value);
 	}
+	public String getPackage(){
+		return flags.get(DEFAULT_FIELDS[0]);
+	}
 	public final static String[] DEFAULT_FIELDS = {
 		"Package", "Essential", "Status", "Priority",
 		"Section", "InstalledSize", "Maintainer",

@@ -59,4 +59,7 @@ public class Parser {
 		}
 		return new_packages;
 	}
+	public static void printPackages(ArrayList<Package> packages) {
+		for(Package p : packages) System.out.println(p.getPackage());
+	}
 }
